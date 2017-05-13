@@ -11,6 +11,7 @@ import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -52,8 +53,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Switch mSwitch = (Switch) findViewById(R.id.swAudio);
-        if(mSwitch.isChecked())
-            REPRODUZ_AUDIO = true;
+        assert mSwitch != null;
+        mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean status) {
+                REPRODUZ_AUDIO = status;
+            }
+        });
 
 
 
@@ -111,11 +117,15 @@ public class MainActivity extends AppCompatActivity {
     public void doRecognize(){
         disparo.setEnabled(false);
         mTextView.setText("Analisando...");
+        if(REPRODUZ_AUDIO)
+            speech.speak("Analisando imagem.", TextToSpeech.QUEUE_FLUSH, null);
         try {
             new doRequest().execute();
         } catch (Exception e)
         {
             mTextView.setText("Error encountered. Exception is: " + e.toString());
+            if(REPRODUZ_AUDIO)
+                speech.speak("Erro ao reconhecer texto.", TextToSpeech.QUEUE_FLUSH, null);
         }
     }
 

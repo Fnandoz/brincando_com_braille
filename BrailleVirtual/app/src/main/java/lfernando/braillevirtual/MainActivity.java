@@ -2,6 +2,7 @@ package lfernando.braillevirtual;
 
 import android.content.Context;
 import android.os.Vibrator;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -12,6 +13,8 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
     Button botoes[] = new Button[12];
     Button next;
@@ -19,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     Vibrator vibrator;
     Letras letras;
     SeekBar pSeek, vSeek;
+    TextToSpeech tts;
 
     int contadorLetra = 0, contadorPontos = 0;
     char letra;
@@ -38,6 +42,13 @@ public class MainActivity extends AppCompatActivity {
         letras = new Letras();
         pSeek = (SeekBar) findViewById(R.id.preenchidoSeekBar);
         vSeek = (SeekBar) findViewById(R.id.vazioSeekBar);
+        tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR)
+                    tts.setLanguage(Locale.getDefault());
+            }
+        });
 
         botoes[0] = (Button) findViewById(R.id.pontoC11);
         botoes[1] = (Button) findViewById(R.id.pontoC12);
@@ -93,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                tts.speak("Próxima letra.", TextToSpeech.QUEUE_FLUSH, null);
                 if(contadorLetra==4){
                     contadorLetra = 0;
                     contadorPontos = 0;
@@ -119,45 +131,63 @@ public class MainActivity extends AppCompatActivity {
             pontos = letras.getPontos(contadorPontos);
             switch (v.getId()){
                 case R.id.pontoC11:
-                    if(pontos[0]==1)
+                    if(pontos[0]==1) {
                         vibrator.vibrate(PREENCHIDO);
-                    else
+                        tts.speak("Ponto 1, preenchido", TextToSpeech.QUEUE_FLUSH, null);
+                    }else {
                         vibrator.vibrate(VAZIO);
+                        tts.speak("Ponto 1, vazio", TextToSpeech.QUEUE_FLUSH, null);
+                    }
                     break;
 
                 case R.id.pontoC12:
-                    if(pontos[1]==1)
+                    if(pontos[1]==1) {
                         vibrator.vibrate(PREENCHIDO);
-                    else
+                        tts.speak("Ponto 2, preenchido", TextToSpeech.QUEUE_FLUSH, null);
+                    }else {
                         vibrator.vibrate(VAZIO);
+                        tts.speak("Ponto 2, vazio", TextToSpeech.QUEUE_FLUSH, null);
+                    }
                     break;
 
                 case R.id.pontoC13:
-                    if(pontos[2]==1)
+                    if(pontos[2]==1) {
                         vibrator.vibrate(PREENCHIDO);
-                    else
+                        tts.speak("Ponto 3, preenchido", TextToSpeech.QUEUE_FLUSH, null);
+                    }else {
                         vibrator.vibrate(VAZIO);
+                        tts.speak("Ponto 3, vazio", TextToSpeech.QUEUE_FLUSH, null);
+                    }
                     break;
 
                 case R.id.pontoC14:
-                    if(pontos[3]==1)
+                    if(pontos[3]==1) {
                         vibrator.vibrate(PREENCHIDO);
-                    else
+                        tts.speak("Ponto 4, preenchido", TextToSpeech.QUEUE_FLUSH, null);
+                    }else {
                         vibrator.vibrate(VAZIO);
+                        tts.speak("Ponto 4, vazio", TextToSpeech.QUEUE_FLUSH, null);
+                    }
                     break;
 
                 case R.id.pontoC15:
-                    if(pontos[4]==1)
+                    if(pontos[4]==1) {
                         vibrator.vibrate(PREENCHIDO);
-                    else
+                        tts.speak("Ponto 5, preenchido", TextToSpeech.QUEUE_FLUSH, null);
+                    }else {
                         vibrator.vibrate(VAZIO);
+                        tts.speak("Ponto 5, vazio", TextToSpeech.QUEUE_FLUSH, null);
+                    }
                     break;
 
                 case R.id.pontoC16:
-                    if(pontos[5]==1)
+                    if(pontos[5]==1) {
                         vibrator.vibrate(PREENCHIDO);
-                    else
+                        tts.speak("Ponto 6, preenchido", TextToSpeech.QUEUE_FLUSH, null);
+                    }else {
                         vibrator.vibrate(VAZIO);
+                        tts.speak("Ponto 6, vazio", TextToSpeech.QUEUE_FLUSH, null);
+                    }
                     break;
             }
         }
