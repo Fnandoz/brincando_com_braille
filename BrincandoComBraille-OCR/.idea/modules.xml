@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/BrailleVirtual.iml" filepath="$PROJECT_DIR$/BrailleVirtual.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BrincandoComBraille-OCR.iml" filepath="$PROJECT_DIR$/BrincandoComBraille-OCR.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
