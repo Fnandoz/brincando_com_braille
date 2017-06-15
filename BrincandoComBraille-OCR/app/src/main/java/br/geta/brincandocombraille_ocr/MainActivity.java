@@ -10,7 +10,9 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
@@ -30,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     TextToSpeech speech;
     ArrayList<String> frases;
     String TAG = "brincando";
+    String saida = "";
+    boolean capturando = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +43,29 @@ public class MainActivity extends AppCompatActivity {
         cameraView = (SurfaceView) findViewById(R.id.surfaceView);
         outputText = (TextView) findViewById(R.id.outputText);
         frases = new ArrayList<>();
-        TextRecognizer textRecognizer = new TextRecognizer.Builder(getApplicationContext()).build();
+        final TextRecognizer textRecognizer = new TextRecognizer.Builder(getApplicationContext()).build();
 
         speech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
-                if(status != TextToSpeech.ERROR) {
+                if (status != TextToSpeech.ERROR) {
                     speech.setLanguage(Locale.ROOT);
                 }
+            }
+        });
+
+        cameraView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                speech.speak(frases.get(frases.size()-1),TextToSpeech.QUEUE_FLUSH, null);
+                return false;
+            }
+        });
+
+        cameraView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                speech.stop();
             }
         });
 
@@ -92,28 +111,32 @@ public class MainActivity extends AppCompatActivity {
 
             textRecognizer.setProcessor(new Detector.Processor<TextBlock>() {
                 @Override
-                public void release() {}
+                public void release() {
+                }
 
                 @Override
                 public void receiveDetections(Detector.Detections<TextBlock> detections) {
 
                     final SparseArray<TextBlock> items = detections.getDetectedItems();
 
-                    if(items.size() != 0){
+                    if (items.size() != 0) {
                         outputText.post(new Runnable() {
                             @Override
                             public void run() {
                                 StringBuilder stringBuilder = new StringBuilder();
-                                for(int i =0;i<items.size();++i) {
+                                for (int i = 0; i < items.size(); ++i) {
                                     TextBlock item = items.valueAt(i);
                                     stringBuilder.append(item.getValue());
                                     stringBuilder.append("\n");
                                 }
                                 addToList(stringBuilder.toString());
+                                speech.speak(stringBuilder.toString(), TextToSpeech.QUEUE_FLUSH, null);
                                 outputText.setText(stringBuilder.toString());
                             }
                         });
-                    }}});
+                    }
+                }
+            });
         }
 
     }
@@ -121,14 +144,17 @@ public class MainActivity extends AppCompatActivity {
     public void addToList(String texto){
         if(!frases.contains(texto)){
             frases.add(texto);
-            speech.speak(frases.get(frases.size()-1), TextToSpeech.QUEUE_FLUSH, null);
+            speech.speak(frases.get(frases.size() - 1), TextToSpeech.QUEUE_FLUSH, null);
         }
     }
+
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         speech.stop();
     }
+
+
 
 }
