@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                                     stringBuilder.append("\n");
                                 }
                                 addToList(stringBuilder.toString());
-                                speech.speak(stringBuilder.toString(), TextToSpeech.QUEUE_FLUSH, null);
+                                //speech.speak(stringBuilder.toString(), TextToSpeech.QUEUE_ADD, null);
                                 outputText.setText(stringBuilder.toString());
                             }
                         });
@@ -144,17 +144,14 @@ public class MainActivity extends AppCompatActivity {
     public void addToList(String texto){
         if(!frases.contains(texto)){
             frases.add(texto);
-            speech.speak(frases.get(frases.size() - 1), TextToSpeech.QUEUE_FLUSH, null);
+            speech.speak(frases.get(frases.size() - 1), TextToSpeech.QUEUE_ADD, null);
         }
     }
 
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onStop() {
+        super.onStop();
         speech.stop();
     }
-
-
-
 }
