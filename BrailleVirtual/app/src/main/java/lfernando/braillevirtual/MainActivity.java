@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        /**
         letras = new Letras();
         pSeek = (SeekBar) findViewById(R.id.preenchidoSeekBar);
         vSeek = (SeekBar) findViewById(R.id.vazioSeekBar);
@@ -120,10 +121,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         vibrator = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
-
+        **/
     }
 
-
+/**
     public View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -192,4 +193,5 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
+ **/
 }

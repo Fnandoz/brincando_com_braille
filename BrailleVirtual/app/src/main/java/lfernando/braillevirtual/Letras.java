@@ -21,7 +21,7 @@ public class Letras {
         return letras[i];
     }
 
-    public int[] getPontos(int i) {
-        return pontos[i];
+    public int getPontos(int a, int b) {
+        return pontos[a][b];
     }
 }

@@ -1,7 +1,12 @@
 package br.geta.brincandocombraille_ocr;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.speech.tts.TextToSpeech;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -23,17 +28,27 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     SurfaceView cameraView;
     TextView outputText;
     CameraSource cameraSource;
+
     final int ID_CAMERA = 9012;
+
     TextToSpeech speech;
     ArrayList<String> frases;
+
     String TAG = "brincando";
-    String saida = "";
-    boolean capturando = true;
+
+
+
+    private SensorManager senSensorManager;
+    private Sensor senAccelerometer;
+
+    private long lastUpdate = 0;
+    private float last_x;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +57,12 @@ public class MainActivity extends AppCompatActivity {
 
         cameraView = (SurfaceView) findViewById(R.id.surfaceView);
         outputText = (TextView) findViewById(R.id.outputText);
+
+        senSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        senAccelerometer = senSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        senSensorManager.registerListener(this, senAccelerometer , SensorManager.SENSOR_DELAY_NORMAL);
+
+
         frases = new ArrayList<>();
         final TextRecognizer textRecognizer = new TextRecognizer.Builder(getApplicationContext()).build();
 
@@ -138,7 +159,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-
     }
 
     public void addToList(String texto){
@@ -153,5 +173,48 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         speech.stop();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        senSensorManager.unregisterListener(this);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        senSensorManager.registerListener(this, senAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent sensorEvent) {
+        Sensor mySensor = sensorEvent.sensor;
+
+        if (mySensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            float x = sensorEvent.values[0];
+
+
+
+            long curTime = System.currentTimeMillis();
+
+            if ((curTime - lastUpdate) > 100) {
+                long diffTime = (curTime - lastUpdate);
+                lastUpdate = curTime;
+
+                float speed = Math.abs(x +  - last_x )/ diffTime * 10000;
+
+                last_x = x;
+
+            }
+
+            Log.d(TAG, "onSensorChanged: "+" X: "+x);
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
     }
 }
