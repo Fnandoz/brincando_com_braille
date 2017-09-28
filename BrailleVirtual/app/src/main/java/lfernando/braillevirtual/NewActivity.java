@@ -13,7 +13,8 @@ import java.util.Locale;
 import in.championswimmer.sfg.lib.SimpleFingerGestures;
 
 public class NewActivity extends AppCompatActivity {
-
+    // TODO: Implementar leitura entre colunas
+    // TODO: Implementar leitura entre linhas
     LinearLayout layout;
     int contadorPonto, contadorLetra = 0;
 
