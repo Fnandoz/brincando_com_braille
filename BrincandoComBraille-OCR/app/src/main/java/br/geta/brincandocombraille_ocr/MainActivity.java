@@ -8,7 +8,9 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.speech.tts.TextToSpeech;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     String TAG = "brincando";
 
 
-
     private SensorManager senSensorManager;
     private Sensor senAccelerometer;
 
@@ -54,6 +55,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        // Checa permissão
+        if(ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.CAMERA},
+                    ID_CAMERA);
+        }
 
         cameraView = (SurfaceView) findViewById(R.id.surfaceView);
         outputText = (TextView) findViewById(R.id.outputText);
@@ -179,6 +190,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onPause() {
         super.onPause();
         senSensorManager.unregisterListener(this);
+        speech.stop();
+
 
     }
 
@@ -209,12 +222,35 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
             }
 
-            Log.d(TAG, "onSensorChanged: "+" X: "+x);
+            //Log.d(TAG, "onSensorChanged: "+" X: "+x);
         }
     }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+
+            case 0:
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted
+
+                } else {
+                    if(ContextCompat.checkSelfPermission(this,
+                            Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+
+                        ActivityCompat.requestPermissions(this,
+                                new String[]{Manifest.permission.CAMERA},
+                                ID_CAMERA);
+                    }
+                }
+                break;
+        }
     }
 }
