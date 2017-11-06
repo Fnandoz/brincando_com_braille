@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2017. Grupo de Estudos em Tecnologia Assistiva - Centro Universitário do Estado do Pará
+ * dgp.cnpq.br/dgp/espelhogrupo/6411407947674167
+ *
+ * Desenvolvido por Luis Fernando Gomes Sales - lfgsnando@gmail.com
+ * https://fnandoz.github.io/
+ */
+
 package br.geta.brincandocombraille_ocr;
 
 import android.Manifest;

@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2017. Grupo de Estudos em Tecnologia Assistiva - Centro Universitário do Estado do Pará
+ * dgp.cnpq.br/dgp/espelhogrupo/6411407947674167
+ *
+ * Desenvolvido por Luis Fernando Gomes Sales - lfgsnando@gmail.com
+ * https://fnandoz.github.io/
+ */
+
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {

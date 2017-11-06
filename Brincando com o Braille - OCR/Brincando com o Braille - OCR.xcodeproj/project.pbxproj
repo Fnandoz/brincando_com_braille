@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9028B5DCE5AA315AE8F9C782 /* Pods_Brincando_com_o_Braille___OCR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCF7551F8D29AAB571AE665 /* Pods_Brincando_com_o_Braille___OCR.framework */; };
 		ED2F45A71FA647E900AF1407 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2F45A61FA647E900AF1407 /* AppDelegate.swift */; };
 		ED2F45A91FA647E900AF1407 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2F45A81FA647E900AF1407 /* ViewController.swift */; };
 		ED2F45AC1FA647E900AF1407 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED2F45AA1FA647E900AF1407 /* Main.storyboard */; };
@@ -15,6 +16,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0629976EC63AB0D90FF69C68 /* Pods-Brincando com o Braille - OCR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Brincando com o Braille - OCR.release.xcconfig"; path = "Pods/Target Support Files/Pods-Brincando com o Braille - OCR/Pods-Brincando com o Braille - OCR.release.xcconfig"; sourceTree = "<group>"; };
+		7C63B0E5CD8997CEDF19AD45 /* Pods-Brincando com o Braille - OCR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Brincando com o Braille - OCR.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Brincando com o Braille - OCR/Pods-Brincando com o Braille - OCR.debug.xcconfig"; sourceTree = "<group>"; };
+		DCCF7551F8D29AAB571AE665 /* Pods_Brincando_com_o_Braille___OCR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Brincando_com_o_Braille___OCR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED2F45A31FA647E900AF1407 /* Brincando com o Braille - OCR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Brincando com o Braille - OCR.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED2F45A61FA647E900AF1407 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ED2F45A81FA647E900AF1407 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -29,17 +33,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9028B5DCE5AA315AE8F9C782 /* Pods_Brincando_com_o_Braille___OCR.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9C4CA6660B24063D436651E3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DCCF7551F8D29AAB571AE665 /* Pods_Brincando_com_o_Braille___OCR.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		ED2F459A1FA647E800AF1407 = {
 			isa = PBXGroup;
 			children = (
 				ED2F45A51FA647E900AF1407 /* Brincando com o Braille - OCR */,
 				ED2F45A41FA647E900AF1407 /* Products */,
+				FF000C741E2716142F0856F8 /* Pods */,
+				9C4CA6660B24063D436651E3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +79,15 @@
 			path = "Brincando com o Braille - OCR";
 			sourceTree = "<group>";
 		};
+		FF000C741E2716142F0856F8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7C63B0E5CD8997CEDF19AD45 /* Pods-Brincando com o Braille - OCR.debug.xcconfig */,
+				0629976EC63AB0D90FF69C68 /* Pods-Brincando com o Braille - OCR.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,9 +95,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = ED2F45B51FA647E900AF1407 /* Build configuration list for PBXNativeTarget "Brincando com o Braille - OCR" */;
 			buildPhases = (
+				D33B2DCA76880365D639F6A9 /* [CP] Check Pods Manifest.lock */,
 				ED2F459F1FA647E800AF1407 /* Sources */,
 				ED2F45A01FA647E800AF1407 /* Frameworks */,
 				ED2F45A11FA647E800AF1407 /* Resources */,
+				51BB25A6C52067D4A2BC2DB9 /* [CP] Embed Pods Frameworks */,
+				EE2604B9CDBD1A5AA5E94FA7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -130,6 +157,62 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		51BB25A6C52067D4A2BC2DB9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Brincando com o Braille - OCR/Pods-Brincando com o Braille - OCR-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GPUImage/GPUImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftOCR/SwiftOCR.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GPUImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftOCR.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Brincando com o Braille - OCR/Pods-Brincando com o Braille - OCR-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D33B2DCA76880365D639F6A9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Brincando com o Braille - OCR-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EE2604B9CDBD1A5AA5E94FA7 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Brincando com o Braille - OCR/Pods-Brincando com o Braille - OCR-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		ED2F459F1FA647E800AF1407 /* Sources */ = {
@@ -272,6 +355,7 @@
 		};
 		ED2F45B61FA647E900AF1407 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7C63B0E5CD8997CEDF19AD45 /* Pods-Brincando com o Braille - OCR.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -287,6 +371,7 @@
 		};
 		ED2F45B71FA647E900AF1407 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0629976EC63AB0D90FF69C68 /* Pods-Brincando com o Braille - OCR.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

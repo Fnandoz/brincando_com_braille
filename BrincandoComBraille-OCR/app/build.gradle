@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2017. Grupo de Estudos em Tecnologia Assistiva - Centro Universitário do Estado do Pará
+ * dgp.cnpq.br/dgp/espelhogrupo/6411407947674167
+ *
+ * Desenvolvido por Luis Fernando Gomes Sales - lfgsnando@gmail.com
+ * https://fnandoz.github.io/
+ */
+
 apply plugin: 'com.android.application'
 
 android {
@@ -8,7 +16,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
+        versionName "0.1-beta"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

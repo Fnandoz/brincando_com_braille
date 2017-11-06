@@ -1,0 +1,6 @@
+framework module Pods_Brincando_com_o_Braille___OCR {
+  umbrella header "Pods-Brincando com o Braille - OCR-umbrella.h"
+
+  export *
+  module * { export * }
+}
