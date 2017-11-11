@@ -6,7 +6,6 @@
 //  Copyright © 2017 Fernando Gomes. All rights reserved.
 //
 
-// https://github.com/garnele007/SwiftOCR
 import UIKit
 
 class ViewController: UIViewController {

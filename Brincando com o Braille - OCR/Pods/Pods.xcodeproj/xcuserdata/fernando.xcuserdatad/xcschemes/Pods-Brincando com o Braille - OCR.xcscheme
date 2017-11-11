@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EC886118AFE5827D31F6AFDC05336B6A"
+               BlueprintIdentifier = "67A506A7CFD8353B21541BAD03C8AEA7"
                BuildableName = "Pods_Brincando_com_o_Braille___OCR.framework"
                BlueprintName = "Pods-Brincando com o Braille - OCR"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EC886118AFE5827D31F6AFDC05336B6A"
+            BlueprintIdentifier = "67A506A7CFD8353B21541BAD03C8AEA7"
             BuildableName = "Pods_Brincando_com_o_Braille___OCR.framework"
             BlueprintName = "Pods-Brincando com o Braille - OCR"
             ReferencedContainer = "container:Pods.xcodeproj">

@@ -7,5 +7,6 @@ target 'Brincando com o Braille - OCR' do
 
   # Pods for Brincando com o Braille - OCR
   
-  pod 'SwiftOCR'
+  pod 'TesseractOCRiOS', '4.0.0'
+
 end
