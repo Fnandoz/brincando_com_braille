@@ -15,8 +15,8 @@ android {
         applicationId "br.geta.brincandocombraille_ocr"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 1
-        versionName "0.1-beta"
+        versionCode 3
+        versionName "0.3-beta"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

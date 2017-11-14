@@ -15,6 +15,9 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraManager;
+import android.os.Build;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     SurfaceView cameraView;
     TextView outputText;
     CameraSource cameraSource;
+    CameraManager cameraManager;
 
     final int ID_CAMERA = 9012;
 
@@ -77,9 +81,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         cameraView = (SurfaceView) findViewById(R.id.surfaceView);
         outputText = (TextView) findViewById(R.id.outputText);
 
+
         senSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         senAccelerometer = senSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         senSensorManager.registerListener(this, senAccelerometer , SensorManager.SENSOR_DELAY_NORMAL);
+        cameraManager = (CameraManager) getSystemService(CAMERA_SERVICE);
+
 
 
         frases = new ArrayList<>();
@@ -97,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         cameraView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                speech.speak(frases.get(frases.size()-1),TextToSpeech.QUEUE_FLUSH, null);
+                //speech.speak(frases.get(frases.size()-1),TextToSpeech.QUEUE_FLUSH, null);
                 return false;
             }
         });
@@ -114,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         } else {
             cameraSource = new CameraSource.Builder(getApplicationContext(), textRecognizer)
                     .setFacing(CameraSource.CAMERA_FACING_BACK)
-                    .setRequestedPreviewSize(1280, 1024)
+                    .setRequestedPreviewSize(800, 600)
                     .setRequestedFps(2.0f)
                     .setAutoFocusEnabled(true)
                     .build();
@@ -169,9 +176,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                                     stringBuilder.append(item.getValue());
                                     stringBuilder.append("\n");
                                 }
-                                addToList(stringBuilder.toString());
+                                //addToList(stringBuilder.toString());
                                 //speech.speak(stringBuilder.toString(), TextToSpeech.QUEUE_ADD, null);
                                 outputText.setText(stringBuilder.toString());
+                                outputText.announceForAccessibility(stringBuilder.toString());
                             }
                         });
                     }
@@ -261,4 +269,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 break;
         }
     }
+
+    public void changeFlash(){}
+
 }
