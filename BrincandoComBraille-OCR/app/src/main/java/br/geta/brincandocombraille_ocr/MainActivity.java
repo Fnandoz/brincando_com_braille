@@ -11,6 +11,7 @@ package br.geta.brincandocombraille_ocr;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Camera;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -41,17 +42,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import static android.hardware.Camera.Parameters.FLASH_MODE_ON;
+import static android.hardware.Camera.Parameters.FOCUS_MODE_AUTO;
+
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
+
+    // Toast quanto flash estiver habilitado
 
     SurfaceView cameraView;
     TextView outputText;
-    CameraSource cameraSource;
-    CameraManager cameraManager;
+    CameraSource2 cameraSource;
 
     final int ID_CAMERA = 9012;
-
-    TextToSpeech speech;
-    ArrayList<String> frases;
 
     String TAG = "brincando";
 
@@ -62,12 +64,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private long lastUpdate = 0;
     private float last_x;
 
+    boolean FLASH_MODE = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         // Checa permissão
         if(ContextCompat.checkSelfPermission(this,
@@ -85,26 +88,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         senSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         senAccelerometer = senSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         senSensorManager.registerListener(this, senAccelerometer , SensorManager.SENSOR_DELAY_NORMAL);
-        cameraManager = (CameraManager) getSystemService(CAMERA_SERVICE);
 
 
-
-        frases = new ArrayList<>();
         final TextRecognizer textRecognizer = new TextRecognizer.Builder(getApplicationContext()).build();
-
-        speech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if (status != TextToSpeech.ERROR) {
-                    speech.setLanguage(Locale.ROOT);
-                }
-            }
-        });
 
         cameraView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                //speech.speak(frases.get(frases.size()-1),TextToSpeech.QUEUE_FLUSH, null);
+                changeFlash();
                 return false;
             }
         });
@@ -112,18 +103,20 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         cameraView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                speech.stop();
+                Toast.makeText(MainActivity.this, "Focando", Toast.LENGTH_SHORT).show();
+                cameraSource.cancelAutoFocus();
             }
         });
 
         if (!textRecognizer.isOperational()) {
             Log.w("MainActivity", "Detector dependencies are not yet available");
         } else {
-            cameraSource = new CameraSource.Builder(getApplicationContext(), textRecognizer)
+            cameraSource = new CameraSource2.Builder(getApplicationContext(), textRecognizer)
                     .setFacing(CameraSource.CAMERA_FACING_BACK)
-                    .setRequestedPreviewSize(800, 600)
-                    .setRequestedFps(2.0f)
-                    .setAutoFocusEnabled(true)
+                    .setRequestedPreviewSize(1024, 768)
+                    .setRequestedFps(30.0f)
+                    .setFocusMode(android.hardware.Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)
+                    .setFlashMode(android.hardware.Camera.Parameters.FLASH_MODE_OFF)
                     .build();
 
             cameraView.getHolder().addCallback(new SurfaceHolder.Callback() {
@@ -174,10 +167,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                                 for (int i = 0; i < items.size(); ++i) {
                                     TextBlock item = items.valueAt(i);
                                     stringBuilder.append(item.getValue());
-                                    stringBuilder.append("\n");
+                                    stringBuilder.append(" ");
                                 }
-                                //addToList(stringBuilder.toString());
-                                //speech.speak(stringBuilder.toString(), TextToSpeech.QUEUE_ADD, null);
+
                                 outputText.setText(stringBuilder.toString());
                                 outputText.announceForAccessibility(stringBuilder.toString());
                             }
@@ -188,27 +180,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
     }
 
-    public void addToList(String texto){
-        if(!frases.contains(texto)){
-            frases.add(texto);
-            speech.speak(frases.get(frases.size() - 1), TextToSpeech.QUEUE_ADD, null);
-        }
-    }
-
-
     @Override
     protected void onStop() {
         super.onStop();
-        speech.stop();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         senSensorManager.unregisterListener(this);
-        speech.stop();
-
-
     }
 
     @Override
@@ -270,6 +250,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
     }
 
-    public void changeFlash(){}
+    public void changeFlash(){
+        if (!FLASH_MODE){
+            Toast.makeText(this, "Flash ligado.", Toast.LENGTH_SHORT).show();
+            FLASH_MODE = true;
+            cameraSource.setFlashMode(android.hardware.Camera.Parameters.FLASH_MODE_TORCH);
+        }else{
+            Toast.makeText(this, "Flash desligado.", Toast.LENGTH_SHORT).show();
+            FLASH_MODE = false;
+            cameraSource.setFlashMode(android.hardware.Camera.Parameters.FLASH_MODE_OFF);
+        }
+
+    }
 
 }
